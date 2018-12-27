@@ -80,8 +80,12 @@ export class Products extends React.Component{
 
   genrateProducts(productsData){
     return productsData.map((product, index)=>{
+      const inlineStyle = {
+        minHeight: "300px",
+        marginBottom: "100px !important"
+      }
       return (
-        <div className="col-lg-4 col-md-6 mb-4" key={index} onMouseEnter={this.showBtn.bind(this, index)} onMouseLeave={this.hideBtn.bind(this, index)}>
+        <div className="col-lg-4 col-md-6 mb-4" style={inlineStyle} key={index} onMouseEnter={this.showBtn.bind(this, index)} onMouseLeave={this.hideBtn.bind(this, index)}>
             <div className="card h-100">
               <a href="#"><img className="card-img-top"  alt="" src={product.image}/></a>
               <div className="card-body">
