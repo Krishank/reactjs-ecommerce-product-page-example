@@ -1,7 +1,9 @@
-# reactjs-basics
-Basic React Project Follow the training for beginner : https://www.youtube.com/playlist?list=PL55RiY5tL51oyA8euSROLjMFZbXaV7skS)
+# reactjs-ecommerce-product-page-example
 
-#two-way-data-binding this branch will explain how to bind an input feild data (In Home Component) to update Header Component
+
+# 01-first-draft: Cart and products both are in a same componetn and the component itself managing its state
+
+# 02-second-draft: This branch used errorBoundry, reactMemo and react Fragment now in this branch we have container component productContaier which is responsible to pass props to products and cart components
 
 #Webpack
 #Webpack-Dev-Server (For Running localhost)

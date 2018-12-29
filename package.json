@@ -1,5 +1,5 @@
 {
-  "name": "reactjs-basics",
+  "name": "reactjs-ecommerce-product-page-example",
   "version": "1.0.0",
   "description": "React Js Basics",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Krishank/reactjs-basics.git"
+    "url": "git+https://github.com/Krishank/reactjs-ecommerce-product-page-example.git"
   },
   "keywords": [
     "reactjs"
@@ -18,9 +18,9 @@
   "author": "Krishank Dwivedi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Krishank/reactjs-basics/issues"
+    "url": "https://github.com/Krishank/reactjs-ecommerce-product-page-example/issues"
   },
-  "homepage": "https://github.com/Krishank/reactjs-basics#readme",
+  "homepage": "https://github.com/Krishank/reactjs-ecommerce-product-page-example#readme",
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
