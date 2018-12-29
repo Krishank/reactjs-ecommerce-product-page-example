@@ -1,91 +1,42 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-export class Products extends React.Component{
-  constructor(props){
-    super();
-    this.cartHtml = "";
-    this.setCartData=[];
-    this.state = {
-      "products": "",
-      "cartData":""
+export const Products = React.memo(function Products(props) {
+  const getIndex = (elm)=> {
+    return elm.currentTarget.getAttribute('index');
+  }
+
+  const showBtn = (elm)=> {
+    const index =  getIndex(elm);
+    props.products[index].addToCart=true;
+    props.onUpdate('PRODUCT_HOVER_IN', props.products);
+  }
+
+  const hideBtn = (elm)=> {
+    const index =  getIndex(elm);
+    props.products[index].addToCart=false;
+    props.onUpdate('PRODUCT_HOVER_OUT', props.products);
+  }
+
+  const addToCartHandler = (elm)=>{
+    const index =  getIndex(elm);
+    if(props.products[index].btnText!=="Added"){
+        props.products[index].btnText = "Added";
+        props.products[index].addedInCart = true;
+        props.onUpdate('ADD_TO_CART', props.products);
+    }else{
+      alert("Product is Already Addin in Cart");
     }
   }
 
-
-  componentWillMount(){
-    this.state.products = [
-      {
-        "name": "Item One",
-        "link": "#",
-        "price":"24.99",
-        "dec": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!",
-        "image": "http://placehold.it/700x400",
-        "raiting": 4,
-        "addToCart": false,
-        "btnText": "Add To Cart",
-        "quantity": 1
-      },
-      {
-        "name": "Item Two",
-        "link": "#",
-        "price":"24.99",
-        "dec": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!",
-        "image": "http://placehold.it/700x400",
-        "raiting": 4,
-        "addToCart": false,
-        "btnText": "Add To Cart",
-        "quantity": 1
-      },
-      {
-        "name": "Item Three",
-        "link": "#",
-        "price":"24.99",
-        "dec": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!",
-        "image": "http://placehold.it/700x400",
-        "raiting": 4,
-        "addToCart": false,
-        "btnText": "Add To Cart",
-        "quantity": 1
-      },
-      {
-        "name": "Item Four",
-        "link": "#",
-        "price":"24.99",
-        "dec": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!",
-        "image": "http://placehold.it/700x400",
-        "raiting": 4,
-        "addToCart": false,
-        "btnText": "Add To Cart",
-        "quantity": 1
-      }
-    ];
-  }
-
-  showBtn(key){
-    this.state.products[key].addToCart=true;
-    this.setState({
-      "products": this.state.products
-    });
-
-  }
-
-  hideBtn(key){
-    this.state.products[key].addToCart=false;
-    this.setState({
-      "products": this.state.products
-    });
-
-  }
-
-  genrateProducts(productsData){
+  const genrateProducts = (productsData)=> {
     return productsData.map((product, index)=>{
       const inlineStyle = {
         minHeight: "300px",
         marginBottom: "100px !important"
       }
       return (
-        <div className="col-lg-4 col-md-6 mb-4" style={inlineStyle} key={index} onMouseEnter={this.showBtn.bind(this, index)} onMouseLeave={this.hideBtn.bind(this, index)}>
+        <div className="col-lg-4 col-md-6 mb-4" style={inlineStyle} index={index} key={index} onMouseEnter={(index)=>showBtn(index)} onMouseLeave={(index)=>{hideBtn(index)}}>
             <div className="card h-100">
               <a href="#"><img className="card-img-top"  alt="" src={product.image}/></a>
               <div className="card-body">
@@ -101,7 +52,7 @@ export class Products extends React.Component{
             </div>
             {(() => {
               if(product.addToCart) {
-                return <button className=" col-lg-12 col-md-6 btn btn-primary" onClick={this.updateCart.bind(this, index)} >{product.btnText}</button>
+                return <button className=" col-lg-12 col-md-6 btn btn-primary" index={index} onClick={(index)=>addToCartHandler(index)} >{product.btnText}</button>
               }
             })()}
 
@@ -110,60 +61,10 @@ export class Products extends React.Component{
     });
 
   }
-
-  updateCart(key){
-    if(this.state.products[key].btnText!=="Added"){
-      this.state.products[key].btnText="Added";
-      this.setCartData.push({
-        "name": this.state.products[key].name,
-        "price": this.state.products[key].price,
-        "quantity": this.state.products[key].quantity
-      })
-      this.state.cartData = this.setCartData
-      this.setState({
-        "products": this.state.products,
-        "cartData": this.state.cartData
-      });
-      this.genrateCart(this.state.cartData);
-    }
-  }
-
-
-  genrateCart(cartData){
-
-    this.cartHtml = cartData.map((item, i)=>{
-      let total = 0;
-      total= total+parseFloat(item.price, 10)
-      return (
-        <div className="list-group">
-          <a href="#" className="list-group-item">
-            Item: {item.name}
-            and
-            Price: {item.price}
-          </a>
-          <a href="#" className="list-group-item">Total: {total}</a>
-        </div>
-      )
-    });
-
-  }
-
-  render(){
     return(
           <React.Fragment>
-            <div className="col-lg-3">
-
-              <h1 className="my-4">Cart</h1>
-              {this.cartHtml}
-            </div>
-
-            <div className="col-lg-9">
-              <div className="row">
-                 {this.genrateProducts(this.state.products)}
-              </div>
-            </div>
+                 {genrateProducts(props.products)}
           </React.Fragment>
 
     )
-  }
-}
+});

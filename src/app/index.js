@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { Products } from "./components/Products";
+import { ProductsContainer } from "./container/ProductsContainer";
 
 class App extends React.Component {
     render() {
@@ -28,7 +28,8 @@ class App extends React.Component {
           "text":"Contact",
           "link":"#"
         }
-      ]
+      ];
+
         return (
             <div className="container">
                 <div className="row" style={{marginBottom: 100 + 'px'}}>
@@ -36,7 +37,7 @@ class App extends React.Component {
                 </div>
 
                 <div className="row">
-                    <Products/>
+                    <ProductsContainer/>
                 </div>
 
                 <div className="row">
