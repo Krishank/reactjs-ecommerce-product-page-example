@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import { ErrorBoundary } from "./ErrorBoundary";
 import { Cart } from "../components/Cart";
 import { Products } from "../components/Products";
 
@@ -113,14 +114,17 @@ export class ProductsContainer extends React.Component {
               <div className="col-lg-3">
 
                 <h1 className="my-4">Cart</h1>
-                <Cart products={this.state.products} onUpdate={(action, payload)=>{this.updateState(action, payload)}} />
-
+                <ErrorBoundary erroMessage="Failed in Cart Component">
+                  <Cart products={this.state.products} onUpdate={(action, payload)=>{this.updateState(action, payload)}} />
+                </ErrorBoundary>
             </div>
 
               <div className="col-lg-9">
                 <div className="row">
+                  <ErrorBoundary erroMessage="Failed in Products Component">
                     <Products products={this.state.products} onUpdate={(action, payload)=>{this.updateState(action, payload)}} />
-                </div>
+                  </ErrorBoundary>
+              </div>
               </div>
             </React.Fragment>
         );
